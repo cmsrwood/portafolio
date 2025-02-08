@@ -1,0 +1,51 @@
+:root {
+    --dark-gray: #1a1a1a;
+    --medium-gray: #333;
+    --light-gray: #4d4d4d;
+}
+
+body {
+    padding-top: 80px;
+}
+
+.navbar {
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('https://source.unsplash.com/random/1920x1080/?code') center/cover;
+}
+
+.bg-dark-gray {
+    background-color: var(--dark-gray) !important;
+}
+
+.bg-medium-gray {
+    background-color: var(--medium-gray);
+}
+
+.badge.bg-gray {
+    background-color: var(--light-gray);
+    color: white;
+}
+
+.project-card,
+.skill-card {
+    transition: transform 0.3s ease;
+    border: 1px solid var(--light-gray);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    background-color: var(--medium-gray);
+}
+
+.contact-form {
+    border: 1px solid var(--light-gray);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--light-gray);
+    border-color: var(--light-gray);
+}
