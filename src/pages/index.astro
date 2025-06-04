@@ -1,0 +1,118 @@
+---
+import "../css/styles.css";
+import axios from "axios";
+
+const token = import.meta.env.GITHUB_TOKEN;
+
+const repos = await axios.get("https://api.github.com/users/cmsrwood/repos", {
+	headers: {
+		Authorization: `Bearer ${token}`,
+	},
+});
+const reposData = repos.data;
+
+const contributorsPromises = reposData.map((repo) =>
+	axios.get(repo.contributors_url, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	}),
+);
+
+const contributorsData = await Promise.allSettled(contributorsPromises);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Portafolio</title>
+	</head>
+	<body class="bg-base-200">
+		<div class="navbar bg-base-100 shadow-sm">
+			<div class="flex-1">
+				<a class="btn btn-ghost text-xl">cmsrwood | Portafolio</a>
+			</div>
+			<div class="flex-none">
+				<ul class="menu menu-horizontal px-1">
+					<li><a href="#sobremi">Sobre mi</a></li>
+					<li><a href="#portafolio">Portafolios</a></li>
+					<li><a href="#contacto">Contacto</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="text-center justify-center flex flex-col items-center p-4">
+			<h1 class="text-5xl font-bold">Mis Repositorios</h1>
+			<p class="py-6">Estos son algunos proyectos públicos en GitHub:</p>
+			<div class="grid grid-cols-1 gap-4">
+				{
+					reposData.map((repo, index) => {
+						const contributorsResult = contributorsData[index];
+						const contributors =
+							contributorsResult.status === "fulfilled"
+								? contributorsResult.value.data
+								: [];
+
+						return (
+							<div
+								class="card w-300 bg-base-100 card-compact shadow-sm"
+								key={repo.id}
+							>
+								<div class="card-body">
+									<div class="flex">
+										<div class="text-left flex-1">
+											<h2 class="text-xl font-semibold">
+												{repo.name}
+											</h2>
+											<p class="text-sm text-gray-500">
+												{repo.description ||
+													"Sin descripción"}
+											</p>
+											<a
+												class="text-blue-500"
+												href={repo.html_url}
+												target="_blank"
+											>
+												Ver en GitHub
+											</a>
+										</div>
+										<div class="">
+											<div class="avatar-group -space-x-6">
+												{contributors
+													.slice(0, 5)
+													.map((contributor) => (
+														<a
+															href={
+																contributor.html_url
+															}
+															target="_blank"
+															rel="noopener noreferrer"
+															key={contributor.id}
+														>
+															<div class="avatar">
+																<div class="w-12">
+																	<img
+																		src={
+																			contributor.avatar_url
+																		}
+																		alt={
+																			contributor.login
+																		}
+																	/>
+																</div>
+															</div>
+														</a>
+													))}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						);
+					})
+				}
+			</div>
+		</div>
+	</body>
+</html>
