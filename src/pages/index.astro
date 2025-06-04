@@ -30,6 +30,7 @@ const contributorsData = await Promise.allSettled(contributorsPromises);
 		<title>Portafolio</title>
 	</head>
 	<body class="bg-base-200">
+		<!-- Navbar -->
 		<div class="navbar bg-base-100 shadow-sm">
 			<div class="flex-1">
 				<a class="btn btn-ghost text-xl">cmsrwood | Portafolio</a>
@@ -40,6 +41,32 @@ const contributorsData = await Promise.allSettled(contributorsPromises);
 					<li><a href="#portafolio">Portafolios</a></li>
 					<li><a href="#contacto">Contacto</a></li>
 				</ul>
+			</div>
+		</div>
+		<!-- Hero Section -->
+		<div class="hero min-h-screen bg-base-200">
+			<div class="hero-content flex-col lg:flex-row-reverse">
+				<img
+					src="/images/hero-image.png"
+					class="max-w-sm rounded-lg shadow-2xl"
+					alt="Hero Image"
+				/>
+				<div>
+					<h1 class="text-5xl font-bold">
+						Hola, soy <span class="text-primary">cmsrwood</span>
+					</h1>
+					<p class="py-6">
+						Desarrollador web con experiencia en JavaScript, TypeScript,
+						React y Node.js. Me apasiona crear aplicaciones web
+						interactivas y eficientes.
+					</p>
+					<a
+						href="#portafolio"
+						class="btn btn-primary"
+					>
+						Ver Portafolio
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="text-center justify-center flex flex-col items-center p-4">
