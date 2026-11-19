@@ -1,21 +1,21 @@
 /*
   Sistema visual compartido de dilanlopez.com: un conmutador telefónico.
-  Panel de baquelita oscura, latón, lámparas ámbar, cables de tela y etiquetas Dymo.
+  Equipo de audio moderno: negro mate, aluminio, LEDs, cables de colores y serigrafía limpia.
 */
 @theme {
-  --color-panel: #1c1916;
-  --color-panel-2: #24201d;
-  --color-panel-3: #2f2925;
-  --color-edge: #43392f;
-  --color-ink: #ebe3d3;
-  --color-dim: #a89d8c;
-  --color-brass: #c9a35b;
-  --color-brass-dark: #8c6f3a;
-  --color-lamp: #ffb444;
-  --color-tape: #a6242b;
-  --color-cable-red: #b8352c;
-  --color-cable-blue: #3f6a8f;
-  --color-cable-mustard: #c99a2e;
+  --color-panel: #0d0e11;
+  --color-panel-2: #15171b;
+  --color-panel-3: #1d2026;
+  --color-edge: #2a2e36;
+  --color-ink: #eef0f4;
+  --color-dim: #8d939e;
+  --color-brass: #c3c9d2;
+  --color-brass-dark: #5f6570;
+  --color-lamp: #7de3ff;
+  --color-tape: #15171b;
+  --color-cable-red: #ff4f5e;
+  --color-cable-blue: #4f8bff;
+  --color-cable-mustard: #ffd43b;
 
   --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
 }
@@ -33,10 +33,10 @@ body {
   margin: 0;
   min-height: 100dvh;
   overflow-x: hidden;
-  /* Textura de baquelita: grano fino + un leve brillo arriba */
+  /* Negro mate con grano muy fino y un leve brillo frío arriba */
   background:
-    radial-gradient(110% 55% at 50% -10%, rgb(201 163 91 / 0.09), transparent 60%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .7 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(110% 55% at 50% -10%, rgb(125 227 255 / 0.05), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .8 0 0 0 0 .85 0 0 0 0 .9 0 0 0 .035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
     var(--color-panel);
 }
 
@@ -51,42 +51,35 @@ body {
   border-radius: 4px;
 }
 
-/* Etiqueta Dymo: cinta con letras en relieve */
+/* Rótulo serigrafiado sobre el panel */
 .dymo {
   display: inline-block;
   padding: 0.2em 0.65em 0.15em;
-  background:
-    linear-gradient(to bottom, rgb(255 255 255 / 0.1), transparent 40%, rgb(0 0 0 / 0.18)),
-    var(--dymo-bg, var(--color-tape));
-  color: #f6f1e7;
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  color: var(--dymo-fg, #c9ced8);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
   line-height: 1.4;
-  text-shadow: 0 -1px 0 rgb(0 0 0 / 0.45), 0 1px 0 rgb(255 255 255 / 0.25);
-  clip-path: polygon(0 8%, 1.5% 0, 98.5% 0, 100% 8%, 100% 92%, 98.5% 100%, 1.5% 100%, 0 92%);
-  box-shadow: 0 1px 0 rgb(0 0 0 / 0.35);
   white-space: nowrap;
 }
 .dymo-black {
-  --dymo-bg: #151311;
+  --dymo-fg: #646a75;
 }
 
-/* Lámpara indicadora */
+/* LED indicador */
 .lamp {
   display: inline-block;
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 9999px;
-  background: radial-gradient(circle at 35% 30%, #5a4936, #2a2119 70%);
-  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.7), 0 0 0 2px var(--color-brass-dark);
+  background: radial-gradient(circle at 35% 30%, #343943, #1a1d22 70%);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.7), 0 0 0 1.5px #2c3038;
   transition: background 180ms ease, box-shadow 220ms ease;
   flex-shrink: 0;
 }
 .lamp.is-on {
-  background: radial-gradient(circle at 35% 30%, #fff2cf, var(--color-lamp) 45%, #c26d12 100%);
-  box-shadow: 0 0 0 2px var(--color-brass-dark), 0 0 10px 2px rgb(255 180 68 / 0.55), 0 0 28px 6px rgb(255 180 68 / 0.22);
+  background: radial-gradient(circle at 35% 30%, #f2fdff, var(--color-lamp) 45%, #1d8eae 100%);
+  box-shadow: 0 0 0 1.5px #2c3038, 0 0 10px 2px rgb(125 227 255 / 0.55), 0 0 26px 6px rgb(125 227 255 / 0.2);
 }
 @keyframes lamp-blink {
   0%, 100% { opacity: 1; }
@@ -102,7 +95,7 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 9999px;
-  background: radial-gradient(circle at 35% 30%, #e7cf98, var(--color-brass) 50%, var(--color-brass-dark));
+  background: radial-gradient(circle at 35% 30%, #4a4f59, #2b2f36 60%, #1c1f24);
   box-shadow: 0 1px 1px rgb(0 0 0 / 0.6);
 }
 .screw::after {
@@ -112,7 +105,7 @@ body {
   right: 2px;
   top: 4.5px;
   height: 1px;
-  background: rgb(60 40 15 / 0.8);
+  background: rgb(0 0 0 / 0.7);
   transform: rotate(var(--r, 35deg));
 }
 

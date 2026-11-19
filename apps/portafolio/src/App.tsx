@@ -49,9 +49,9 @@ export default function App() {
         <a href={siteUrl('home')} className="flex items-center gap-2.5 py-2 font-semibold">
           <span
             aria-hidden="true"
-            className="grid size-6 place-items-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#e1c587,var(--color-brass)_45%,var(--color-brass-dark))]"
+            className="grid size-6 place-items-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#f4f6f9,#c3c9d2_40%,#6b717c)]"
           >
-            <span className="size-2.5 rounded-full bg-[#0c0a09]" />
+            <span className="size-2.5 rounded-full bg-[#050608]" />
           </span>
           Dilan López
         </a>
@@ -113,7 +113,7 @@ export default function App() {
         <div className="mt-6 flex flex-wrap gap-3">
           <a
             href={`mailto:${CONTACT.email}`}
-            className="rounded-full bg-brass px-5 py-3 font-semibold text-panel shadow-[0_6px_18px_-8px_rgb(201_163_91/.7)] transition-transform active:scale-95"
+            className="rounded-full bg-brass px-5 py-3 font-semibold text-panel shadow-[0_6px_18px_-8px_rgb(195_201_210/.5)] transition-transform active:scale-95"
           >
             {CONTACT.email}
           </a>

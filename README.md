@@ -4,7 +4,7 @@ Monorepo con los sitios de Dilan López. Usan Vite, React, TypeScript y Tailwind
 
 | App | Dominio | Qué es |
 |---|---|---|
-| `apps/home` | dilanlopez.com | Página de inicio: nombre y un conmutador telefónico que lleva a cada sitio |
+| `apps/home` | dilanlopez.com | Página de inicio: nombre y un conmutador donde cada enchufe muestra algo sobre Dilan |
 | `apps/portafolio` | portafolio.dilanlopez.com | Proyectos, organizados como líneas de un conmutador |
 | `packages/ui` | | Estilo compartido (colores, etiqueta Dymo, lámpara, tornillos) y utilidades |
 
