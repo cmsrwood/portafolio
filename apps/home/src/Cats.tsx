@@ -78,9 +78,10 @@ const VIEW_H = 128
 type CatProps = {
   name: 'milu' | 'body'
   pointer: Point
+  onTap: () => void
 }
 
-function Cat({ name, pointer }: CatProps) {
+function Cat({ name, pointer, onTap }: CatProps) {
   const svg = useRef<SVGSVGElement>(null)
   const [happy, setHappy] = useState(false)
   const [said, setSaid] = useState<string | null>(null)
@@ -104,6 +105,7 @@ function Cat({ name, pointer }: CatProps) {
 
   const tap = () => {
     vibrate(12)
+    onTap()
     const lines = LINES[name]
     setSaid(lines[count % lines.length])
     setCount((c) => c + 1)
@@ -130,7 +132,7 @@ function Cat({ name, pointer }: CatProps) {
         {said ?? ' '}
       </p>
       <button type="button" onClick={tap} aria-label={isBody ? 'tocar a Body' : 'tocar a Milú'} className="block cursor-pointer active:scale-[0.97]">
-        <svg ref={svg} viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="block w-[clamp(7.5rem,32vw,10rem)] text-ink" aria-hidden="true">
+        <svg ref={svg} viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="block w-[clamp(9.5rem,40vw,12rem)] overflow-hidden text-ink" aria-hidden="true">
           {isBody ? (
             <>
               {/* Body: gris con blanco, cachetón, V blanca entre los ojos */}
@@ -181,9 +183,24 @@ function Cat({ name, pointer }: CatProps) {
             <ellipse cx={isBody ? 116 : 112} cy="96" rx="8" ry="4.5" />
           </g>
 
-          {/* patitas blancas sobre el borde */}
-          <path fill={C.white} stroke={C.line} strokeWidth={1.6} d={isBody ? 'M40 128 C40 110 66 110 66 128' : 'M46 128 C46 112 70 112 70 128'} />
-          <path fill={C.white} stroke={C.line} strokeWidth={1.6} d={isBody ? 'M94 128 C94 110 120 110 120 128' : 'M90 128 C90 112 114 112 114 128'} />
+          {/* patitas: al tocarlo suben y le tapan los ojos */}
+          {eyes.map((e, i) => (
+            <g
+              key={`pata-${i}`}
+              style={{
+                transform: happy ? 'translateY(-52px)' : 'none',
+                transition: `transform 380ms cubic-bezier(.3,1.5,.5,1) ${i * 50}ms`,
+              }}
+            >
+              <path
+                fill={C.white}
+                stroke={C.line}
+                strokeWidth={1.8}
+                d={`M${e.x - 15} 130 C${e.x - 15} 106 ${e.x + 15} 106 ${e.x + 15} 130 Z`}
+              />
+              <path stroke={C.line} strokeWidth={1.6} strokeLinecap="round" d={`M${e.x - 5} 110 v6 M${e.x + 5} 110 v6`} />
+            </g>
+          ))}
         </svg>
       </button>
       <span className="mt-1.5 text-xs font-semibold text-dim">{isBody ? 'Body' : 'Milú'}</span>
@@ -193,14 +210,25 @@ function Cat({ name, pointer }: CatProps) {
 
 export function Cats() {
   const pointer = usePointer()
+  const [touched, setTouched] = useState(false)
   return (
-    <div className="relative">
-      <div className="flex items-end justify-center gap-[clamp(1.5rem,8vw,4rem)] md:justify-start md:pl-6">
-        <Cat name="milu" pointer={pointer} />
-        <Cat name="body" pointer={pointer} />
+    <div>
+      <div className="relative">
+        <div className="flex items-end justify-center gap-[clamp(1.5rem,8vw,4rem)] md:justify-start md:pl-6">
+          <Cat name="milu" pointer={pointer} onTap={() => setTouched(true)} />
+          <Cat name="body" pointer={pointer} onTap={() => setTouched(true)} />
+        </div>
+        {/* borde del escritorio */}
+        <div className="absolute inset-x-0 bottom-[1.6rem] h-px bg-ink/30" aria-hidden="true" />
       </div>
-      {/* borde del escritorio */}
-      <div className="absolute inset-x-0 bottom-[1.6rem] h-px bg-ink/30" aria-hidden="true" />
+      <p
+        className={`mt-3 flex items-center justify-center gap-2 text-sm text-dim transition-opacity duration-500 md:justify-start md:pl-6 ${
+          touched ? 'opacity-0' : 'opacity-100'
+        }`}
+      >
+        <span className="pulse size-1.5 rounded-full bg-lamp" aria-hidden="true" />
+        tócalos
+      </p>
     </div>
   )
 }
