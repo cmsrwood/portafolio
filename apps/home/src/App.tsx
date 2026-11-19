@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { CONTACT } from '@dl/ui'
+import { Cats } from './Cats'
 import { ABOUT, ABOUT_QUOTE, BEYOND, CLOSING, DOING, INTRO, PATH, PROJECTS, STACK } from './content'
 
 const condensed = { fontVariationSettings: '"wdth" 75' }
@@ -29,6 +30,9 @@ export default function App() {
         <p className="rise mt-8 max-w-[32rem] text-[clamp(1.25rem,4.6vw,1.6rem)] leading-snug" style={{ animationDelay: '500ms' }}>
           Desarrollador de software, entusiasta de la nube y alguien que nunca deja de construir cosas.
         </p>
+        <div className="rise mt-16" style={{ animationDelay: '800ms' }}>
+          <Cats />
+        </div>
       </header>
 
       <div className="space-y-5 pb-16 text-[1.08rem] leading-relaxed text-dim">

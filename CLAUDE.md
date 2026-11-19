@@ -8,7 +8,7 @@ Es un **conmutador telefónico** con estética de equipo de audio moderno: negro
 
 - Sin emojis ni plantillas genéricas de IA (degradados decorativos, tarjetas idénticas, fade-up en cada sección).
 - Las animaciones responden a lo que hace quien visita. La pieza fuerte es el cable que conecta en la página de inicio.
-- La página de inicio (`apps/home`) es una sola página larga con los textos de Dilan (`src/content.ts`). **No lleva conmutador ni enchufes** (a Dilan no le gustaron ahí) y **no enlaza a otras páginas**: el único enlace es el correo. El protagonista es la tipografía.
+- La página de inicio (`apps/home`) es una sola página larga con los textos de Dilan (`src/content.ts`). **No lleva conmutador ni enchufes** (a Dilan no le gustaron ahí) y **no enlaza a otras páginas**: el único enlace es el correo. El protagonista es la tipografía, más Milú y Body (`src/Cats.tsx`), sus gatos dibujados con línea que siguen el puntero con los ojos y dicen frases al tocarlos.
 - Diseño primero para celular, con dos columnas en pantallas anchas.
 
 ## Contenido
