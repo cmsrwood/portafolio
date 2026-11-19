@@ -93,22 +93,14 @@ export const BOARDS: Board[] = [
     lines: [
       {
         ext: '301',
-        title: 'Echoes Beyond the Void',
-        summary: 'Terror espacial con una IA de compañía.',
+        title: 'Umbral',
+        summary: 'Terror psicológico y ciencia ficción en el páramo. En desarrollo.',
         detail:
-          'Un juego en el que escapas de una nave invadida por criaturas junto a la IA de la nave, que conversa contigo. Hay miedo, pero también momentos de calma y un vínculo con ella.',
-        tools: ['Unreal Engine 5', 'IA conversacional'],
+          'Un videojuego que explora la interacción entre el jugador y una inteligencia artificial conversacional. Ambientado en los misteriosos paisajes del páramo colombiano, combina exploración, narrativa y sistemas de IA.',
+        tools: ['Godot 4', 'GDScript', 'IA conversacional'],
       },
       {
         ext: '302',
-        title: 'Umbral',
-        summary: 'Un juego narrativo que pasa por Bogotá.',
-        detail:
-          'Una historia por capítulos en la que armas las respuestas de un personaje a partir de palabras incompletas. Uno de los capítulos pasa en Bogotá.',
-        tools: ['Godot 4', 'GDScript'],
-      },
-      {
-        ext: '303',
         title: 'Jarvis',
         summary: 'Mi asistente personal, local, en Windows.',
         detail:
@@ -116,7 +108,7 @@ export const BOARDS: Board[] = [
         tools: ['LLMs', 'Windows'],
       },
       {
-        ext: '304',
+        ext: '303',
         title: 'Gestor de gastos',
         summary: 'Para saber en qué se me va la plata.',
         detail: 'Una app móvil personal para registrar y entender mis gastos.',
@@ -131,5 +123,5 @@ export const STACK: { group: string; items: string }[] = [
   { group: 'Backend', items: 'Node.js, Python, APIs REST, WebSockets' },
   { group: 'AWS', items: 'Lambda, API Gateway, DynamoDB, S3, CDK, Amplify, Amazon Connect, Lex' },
   { group: 'Voz', items: 'Asterisk, SIP, ElevenLabs' },
-  { group: 'Juegos', items: 'Godot 4, Unreal Engine 5' },
+  { group: 'Juegos', items: 'Godot 4' },
 ]

@@ -8,11 +8,12 @@ Es un **conmutador telefónico** con estética de equipo de audio moderno: negro
 
 - Sin emojis ni plantillas genéricas de IA (degradados decorativos, tarjetas idénticas, fade-up en cada sección).
 - Las animaciones responden a lo que hace quien visita. La pieza fuerte es el cable que conecta en la página de inicio.
-- La página de inicio **no redirige a otras páginas**: cada enchufe muestra información sobre Dilan en la pantalla del panel.
+- La página de inicio (`apps/home`) es una sola página larga con los textos de Dilan (`src/content.ts`). **No lleva conmutador ni enchufes** (a Dilan no le gustaron ahí) y **no enlaza a otras páginas**: el único enlace es el correo. El protagonista es la tipografía.
 - Diseño primero para celular, con dos columnas en pantallas anchas.
 
 ## Contenido
 
+- Umbral: terror psicológico y ciencia ficción en el páramo colombiano, con IA conversacional, hecho en Godot. Echoes Beyond the Void **no** se muestra.
 - Los proyectos de Nua Talker se cuentan desde lo que se construyó, sin datos internos ni nombres de clientes.
 - No inventes tecnologías: verifica el stack real de cada proyecto antes de listarlo.
 - La página `liz.dilanlopez.com` vive en otro repo y **no** se enlaza desde aquí.

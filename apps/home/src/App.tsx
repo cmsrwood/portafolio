@@ -1,171 +1,163 @@
-import { useRef, useState } from 'react'
-import { CONTACT, Dymo, Lamp, Screws, vibrate } from '@dl/ui'
+import type { ReactNode } from 'react'
+import { CONTACT } from '@dl/ui'
+import { ABOUT, ABOUT_QUOTE, BEYOND, CLOSING, DOING, INTRO, PATH, PROJECTS, STACK } from './content'
 
-/*
-  La página de inicio no lleva a ningún lado: cada enchufe muestra algo sobre Dilan
-  en la pantalla del mismo panel.
-*/
-type Jack = {
-  id: string
-  label: string
-  cable: string
-  lines: string[]
+const condensed = { fontVariationSettings: '"wdth" 75' }
+
+function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
+  return (
+    <section aria-labelledby={id} className="border-t border-edge py-16 md:py-20">
+      <h2 id={id} className="text-[clamp(2.2rem,8vw,3.4rem)] font-extrabold leading-[0.95] tracking-[-0.025em]" style={condensed}>
+        {title}
+      </h2>
+      <div className="mt-8">{children}</div>
+    </section>
+  )
 }
 
-const JACKS: Jack[] = [
-  {
-    id: 'hola',
-    label: 'hola',
-    cable: 'var(--color-cable-red)',
-    lines: ['Soy Dilan López.', 'Desarrollador en Bogotá.', 'Me gusta construir cosas que hablan con la gente.'],
-  },
-  {
-    id: 'trabajo',
-    label: 'trabajo',
-    cable: 'var(--color-cable-blue)',
-    lines: [
-      'En Nua Talker hago agentes virtuales',
-      'que contestan llamadas y chats,',
-      'y todo lo que los conecta: telefonía, CRM, reportes.',
-    ],
-  },
-  {
-    id: 'juegos',
-    label: 'juegos',
-    cable: 'var(--color-cable-mustard)',
-    lines: ['Por gusto hago juegos.', 'Uno de terror espacial con una IA de compañía', 'y otro narrativo que pasa por Bogotá.'],
-  },
-  {
-    id: 'contacto',
-    label: 'contacto',
-    cable: 'var(--color-cable-red)',
-    lines: [CONTACT.email, 'github.com/cmsrwood'],
-  },
-]
-
-type Patch = { id: string; d: string; color: string }
-
 export default function App() {
-  const panel = useRef<HTMLDivElement>(null)
-  const plug = useRef<HTMLSpanElement>(null)
-  const holes = useRef<Record<string, HTMLSpanElement | null>>({})
-  const [patch, setPatch] = useState<Patch | null>(null)
-
-  const connect = (jack: Jack) => {
-    if (patch?.id === jack.id) {
-      vibrate(8)
-      setPatch(null)
-      return
-    }
-    const box = panel.current?.getBoundingClientRect()
-    const from = plug.current?.getBoundingClientRect()
-    const to = holes.current[jack.id]?.getBoundingClientRect()
-    if (!box || !from || !to) return
-
-    const px = from.left + from.width / 2 - box.left
-    const py = from.top - box.top + 4
-    const jx = to.left + to.width / 2 - box.left
-    const jy = to.top + to.height / 2 - box.top
-    const d = `M ${px} ${py} C ${px} ${py - 60}, ${jx} ${jy + 90}, ${jx} ${jy}`
-
-    vibrate(18)
-    setPatch({ id: jack.id, d, color: jack.cable })
-  }
-
-  const active = JACKS.find((j) => j.id === patch?.id)
-
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(2.5rem,env(safe-area-inset-top))] md:grid md:max-w-5xl md:grid-cols-[1.15fr_1fr] md:items-center md:gap-16 md:px-10">
-      <div>
-        <h1
-          className="rise text-[clamp(4.5rem,24vw,7rem)] font-extrabold leading-[0.82] tracking-[-0.04em] md:text-[clamp(7rem,12vw,10.5rem)]"
-          style={{ fontVariationSettings: '"wdth" 75' }}
-        >
-          Dilan
+    <main className="mx-auto max-w-[46rem] px-5 pb-[max(2rem,env(safe-area-inset-bottom))] md:px-8">
+      {/* Portada */}
+      <header className="flex min-h-[92dvh] flex-col justify-end pb-16 pt-[max(2rem,env(safe-area-inset-top))]">
+        <p className="mb-auto pt-2 text-sm text-dim">Bogotá, Colombia</p>
+        <h1 className="hero-name text-[clamp(4.2rem,19vw,9.5rem)] font-extrabold leading-[0.84] tracking-[-0.04em]">
+          Hola,
           <br />
-          <span className="text-dim">López</span>
+          soy Dilan
         </h1>
-        <p className="rise mt-6 max-w-[21rem] text-[1.15rem] leading-relaxed text-dim" style={{ animationDelay: '120ms' }}>
-          Conecta un cable para saber un poco más de mí.
+        <p className="rise mt-8 max-w-[32rem] text-[clamp(1.25rem,4.6vw,1.6rem)] leading-snug" style={{ animationDelay: '500ms' }}>
+          Desarrollador de software, entusiasta de la nube y alguien que nunca deja de construir cosas.
         </p>
+      </header>
+
+      <div className="space-y-5 pb-16 text-[1.08rem] leading-relaxed text-dim">
+        {INTRO.map((p) => (
+          <p key={p} className="max-w-[38rem]">
+            {p}
+          </p>
+        ))}
       </div>
 
-      <div className="mt-auto pt-10 md:mt-0 md:pt-0">
-        <div
-          ref={panel}
-          className="rise relative rounded-[1.4rem] border border-edge bg-panel-2 px-4 pb-16 pt-6 shadow-[inset_0_1px_0_rgb(255_255_255/.04),0_30px_60px_-24px_rgb(0_0_0/.9)]"
-          style={{ animationDelay: '240ms' }}
-        >
-          <Screws />
-
-          {/* pantalla */}
-          <div
-            aria-live="polite"
-            className="mx-1 mb-6 min-h-[8.5rem] rounded-xl border border-black/60 bg-[#07090c] px-4 py-3.5 shadow-[inset_0_2px_10px_rgb(0_0_0/.8)]"
-          >
-            {active ? (
-              <div key={active.id} className="screen-in space-y-1 text-[0.98rem] leading-snug text-lamp">
-                {active.lines.map((l) => (
-                  <p key={l} className={l.includes('@') || l.startsWith('github') ? 'select-all' : ''}>
-                    {l}
-                  </p>
-                ))}
-              </div>
-            ) : (
-              <p className="text-[0.98rem] text-dim/70">
-                sin señal
-                <span className="blink ml-0.5 inline-block w-2 text-lamp">_</span>
-              </p>
-            )}
-          </div>
-
-          <ul className="grid grid-cols-4 gap-1">
-            {JACKS.map((j) => {
-              const live = patch?.id === j.id
-              return (
-                <li key={j.id}>
-                  <button
-                    type="button"
-                    onClick={() => connect(j)}
-                    aria-pressed={live}
-                    className="group flex w-full cursor-pointer flex-col items-center gap-2.5 py-1"
-                  >
-                    <Lamp on={live} />
-                    <span
-                      ref={(el) => {
-                        holes.current[j.id] = el
-                      }}
-                      className="grid size-12 place-items-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#f4f6f9,#c3c9d2_40%,#6b717c)] shadow-[0_2px_4px_rgb(0_0_0/.7)] transition-transform group-active:scale-95"
-                    >
-                      <span className="size-6 rounded-full bg-[#050608] shadow-[inset_0_3px_5px_rgb(0_0_0/.95)]" />
-                    </span>
-                    <Dymo>{j.label}</Dymo>
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-
-          {/* clavija de donde sale el cable */}
-          <span
-            ref={plug}
-            aria-hidden="true"
-            className="absolute bottom-0 left-1/2 h-9 w-5 -translate-x-1/2 rounded-t-md bg-[linear-gradient(90deg,#2a2d33,#4a4f58_45%,#1f2227)] shadow-[0_-2px_4px_rgb(0_0_0/.5)]"
-          >
-            <span className="absolute -top-2.5 left-1/2 h-3 w-1.5 -translate-x-1/2 rounded-t-sm bg-[#c3c9d2]" />
-          </span>
-
-          <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
-            {patch && (
-              <g key={patch.id}>
-                <path d={patch.d} pathLength={1} className="cable" style={{ ['--len' as string]: 1 }} fill="none" stroke="rgb(0 0 0 / .5)" strokeWidth={9} strokeLinecap="round" transform="translate(1 3)" />
-                <path d={patch.d} pathLength={1} className="cable" style={{ ['--len' as string]: 1 }} fill="none" stroke={patch.color} strokeWidth={7} strokeLinecap="round" />
-                <path d={patch.d} pathLength={1} className="cable" style={{ ['--len' as string]: 1 }} fill="none" stroke="rgb(255 255 255 / .22)" strokeWidth={2} strokeLinecap="round" transform="translate(-1.5 -1.5)" />
-              </g>
-            )}
-          </svg>
+      <Section id="sobre-mi" title="Un poco sobre mí">
+        <div className="space-y-5 text-[1.05rem] leading-relaxed text-ink/85">
+          {ABOUT.map((p) => (
+            <p key={p} className="max-w-[38rem]">
+              {p}
+            </p>
+          ))}
         </div>
-      </div>
+        <blockquote className="mt-10 max-w-[36rem] border-l-2 border-lamp pl-5 text-[clamp(1.25rem,4.4vw,1.55rem)] font-medium leading-snug">
+          {ABOUT_QUOTE}
+        </blockquote>
+        <ol className="mt-12 space-y-0">
+          {PATH.map((step, i) => (
+            <li key={step.place} className="relative grid grid-cols-[1.25rem_1fr] gap-x-3 pb-6 last:pb-0">
+              <span aria-hidden="true" className="relative flex justify-center">
+                <span className="mt-2 size-2.5 rounded-full bg-brass" />
+                {i < PATH.length - 1 && <span className="absolute -bottom-2 top-5 w-px bg-edge" />}
+              </span>
+              <div>
+                <p className="font-semibold">{step.place}</p>
+                <p className="text-dim">{step.what}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section id="lo-que-hago" title="Lo que hago">
+        <div className="grid gap-x-12 gap-y-10 md:grid-cols-2">
+          {DOING.map((d) => (
+            <div key={d.title}>
+              <h3 className="text-[1.2rem] font-bold">{d.title}</h3>
+              <p className="mt-2 leading-relaxed text-dim">{d.text}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section id="proyectos" title="Proyectos y experimentos">
+        <ul>
+          {PROJECTS.map((p) => (
+            <li key={p.name} className="border-t border-edge/60 py-8 first:border-t-0 first:pt-0">
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                <h3 className="text-[clamp(1.8rem,6.5vw,2.4rem)] font-extrabold leading-none tracking-[-0.02em]" style={condensed}>
+                  {p.name}
+                </h3>
+                <span className="text-sm text-dim">{p.kind}</span>
+                {p.status && (
+                  <span className="inline-flex items-center gap-2 rounded-full border border-lamp/30 px-2.5 py-0.5 text-xs font-semibold text-lamp">
+                    <span className="pulse size-1.5 rounded-full bg-lamp" aria-hidden="true" />
+                    {p.status}
+                  </span>
+                )}
+              </div>
+              <p className="mt-3 max-w-[38rem] leading-relaxed text-ink/85">{p.text}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section id="stack" title="Mi stack">
+        <dl className="grid gap-x-8 gap-y-5 md:grid-cols-[13rem_1fr]">
+          {STACK.map((s) => (
+            <div key={s.group} className="contents">
+              <dt className="font-semibold text-brass">{s.group}</dt>
+              <dd className="-mt-4 text-ink/85 md:mt-0">{s.items}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+
+      <Section id="mas-alla" title="Más allá del código">
+        <div className="space-y-5 text-[1.05rem] leading-relaxed text-ink/85">
+          {BEYOND.map((p) => (
+            <p key={p} className="max-w-[38rem]">
+              {p}
+            </p>
+          ))}
+          <p className="max-w-[38rem] text-dim">
+            Y siempre estoy buscando algo nuevo que aprender, construir o experimentar. Creo que la curiosidad es una de las
+            mejores cualidades que alguien puede conservar.
+          </p>
+        </div>
+      </Section>
+
+      <Section id="algo-nuevo" title="Siempre hay algo nuevo por construir">
+        <div className="space-y-5 text-[1.05rem] leading-relaxed text-ink/85">
+          {CLOSING.map((p) => (
+            <p key={p} className="max-w-[38rem]">
+              {p}
+            </p>
+          ))}
+        </div>
+      </Section>
+
+      <section aria-labelledby="construimos" className="border-t border-edge pb-12 pt-16 md:pt-24">
+        <h2
+          id="construimos"
+          className="text-[clamp(3.2rem,15vw,7rem)] font-extrabold leading-[0.86] tracking-[-0.04em]"
+          style={condensed}
+        >
+          ¿Construimos algo?
+        </h2>
+        <p className="mt-6 max-w-[32rem] text-[1.1rem] leading-relaxed text-dim">
+          Me gusta conocer personas, intercambiar ideas y participar en proyectos interesantes. Si tienes algo en mente,
+          conversemos.
+        </p>
+        <a
+          href={`mailto:${CONTACT.email}`}
+          className="mt-8 inline-block rounded-full bg-ink px-6 py-3.5 font-semibold text-panel transition-transform active:scale-95"
+        >
+          Escríbeme a {CONTACT.email}
+        </a>
+      </section>
+
+      <footer className="border-t border-edge pt-6 text-sm text-dim">
+        <p className="font-semibold text-ink">Dilan Santiago López Romero</p>
+        <p>Desarrollador de software en Bogotá, Colombia</p>
+      </footer>
     </main>
   )
 }
