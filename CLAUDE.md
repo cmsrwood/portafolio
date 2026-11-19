@@ -1,69 +1,17 @@
-# portafolio — cmsrwood
+# dilanlopez.com (repo `cmsrwood/portafolio`)
 
-Portafolio personal de **Dilan** (`cmsrwood`) — Desarrollador Web Full Stack en Bogotá, Colombia. Muestra proyectos, stack tecnológico, servicios y repositorios de GitHub en tiempo real.
+Monorepo de npm workspaces con los sitios personales de Dilan López. Lee el `README.md` para ver la estructura y los comandos.
 
-## Stack
+## Identidad visual
 
-- Astro 5 (SSG, build estático)
-- Tailwind CSS v4 (`@tailwindcss/vite` plugin)
-- DaisyUI v5 (tema `night`, override a fondo negro `#06060a`)
-- Axios (fetch de repos GitHub en build time)
+Es un **conmutador telefónico**: panel de baquelita oscura, latón, lámparas ámbar, cables de tela y etiquetas Dymo en relieve. Dilan trabaja en telefonía y agentes de voz, y de ahí sale el concepto. Los tokens están en `packages/ui/src/theme.css`.
 
-## Variables de entorno
+- Sin emojis ni plantillas genéricas de IA (degradados decorativos, tarjetas idénticas, fade-up en cada sección).
+- Las animaciones responden a lo que hace quien visita. La pieza fuerte es el cable que conecta en la página de inicio.
+- Diseño primero para celular, con dos columnas en pantallas anchas.
 
-```bash
-# .env.local (no commitear)
-GITHUB_TOKEN=ghp_...   # PAT de GitHub con scope public_repo — para el fetch de repos en build
-```
+## Contenido
 
-Sin `GITHUB_TOKEN` el build funciona igual — la sección de repos queda vacía (try/catch protegido).
-
-## Comandos
-
-```bash
-npm install         # instalar dependencias
-npm run dev         # servidor de desarrollo en localhost:4321
-npm run build       # genera dist/ (incluye sitemap-index.xml)
-npm run preview     # previsualizar el build localmente
-```
-
-## Estructura
-
-```
-src/
-  pages/
-    index.astro     # página única: navbar, hero, skills, proyectos, repos, servicios, contacto
-  css/
-    styles.css      # sistema de diseño completo (glassmorphism, gradientes, dark theme)
-public/
-  robots.txt        # apunta al sitemap
-  favicon.svg
-dist/               # build estático con sitemap
-astro.config.mjs    # integra @astrojs/sitemap, @tailwindcss/vite, site URL
-```
-
-## Secciones del sitio
-
-- **Navbar** — glassmorphism fijo, links de navegación
-- **Hero** — nombre con gradiente, badge "disponible", tech pills, CTAs, link a nuatalker.com
-- **Stack** — grid de categorías (Frontend, Backend, Cloud & AWS, Herramientas)
-- **Proyectos destacados** — IU Digital Virtual Agent, Landing Pages Bogotá
-- **Repos GitHub** — fetch en build time desde la API de GitHub (público, no forks)
-- **Servicios** — Landing Pages, Desarrollo Web, Soluciones AWS
-- **Contacto** — email + GitHub
-
-## Deploy (AWS Amplify)
-
-- Conectado a `github.com/cmsrwood/portafolio`
-- Build command: `npm run build`
-- Output directory: `dist`
-- Env var `GITHUB_TOKEN` configurada en Amplify console
-- Cuando tengas dominio: actualizar `site:` en `astro.config.mjs` y `Sitemap:` en `public/robots.txt`
-
-## SEO
-
-- JSON-LD `Person` schema con knowsAbout, email, sameAs GitHub
-- Open Graph + Twitter Card
-- Geo tags Bogotá, Colombia (`CO-DC`)
-- Sitemap auto-generado por `@astrojs/sitemap`
-- `robots.txt` con referencia al sitemap
+- Los proyectos de Nua Talker se cuentan desde lo que se construyó, sin datos internos ni nombres de clientes.
+- No inventes tecnologías: verifica el stack real de cada proyecto antes de listarlo.
+- La página `liz.dilanlopez.com` vive en otro repo y **no** se enlaza desde aquí.

@@ -1,0 +1,28 @@
+version: 1
+applications:
+  - appRoot: apps/home
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - cd ../.. && npm ci
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: dist
+        files:
+          - '**/*'
+  - appRoot: apps/portafolio
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - cd ../.. && npm ci
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: dist
+        files:
+          - '**/*'

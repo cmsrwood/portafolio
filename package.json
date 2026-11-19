@@ -1,20 +1,14 @@
 {
-  "name": "cmsrwood-portafolio",
+  "name": "dilanlopez",
+  "private": true,
   "type": "module",
-  "version": "0.0.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "start": "astro dev"
-  },
-  "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
-    "@tailwindcss/vite": "^4.1.8",
-    "astro": "^5.8.2",
-    "axios": "^1.9.0",
-    "daisyui": "^5.0.43",
-    "tailwindcss": "^4.1.8"
+    "dev:home": "npm run dev -w home -- --host --port 5180",
+    "dev:portafolio": "npm run dev -w portafolio -- --host --port 5181",
+    "build": "npm run build -w home && npm run build -w portafolio"
   }
 }
